@@ -2,8 +2,10 @@
 
 namespace App\Transformers;
 
+use App\Models\Product;
 use League\Fractal\TransformerAbstract;
 use App\Entities\ProductTransformer;
+
 
 /**
  * Class ProductTransformerTransformer.
