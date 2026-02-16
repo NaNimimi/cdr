@@ -4,30 +4,35 @@ namespace App\Transformers;
 
 use App\Models\Product;
 use League\Fractal\TransformerAbstract;
-use App\Entities\ProductTransformer;
 
-
-/**
- * Class ProductTransformerTransformer.
- *
- * @package namespace App\Transformers;
- */
-class ProductTransformerTransformer extends TransformerAbstract
+class ProductTransformer extends TransformerAbstract
 {
-    /**
-     * Transform the ProductTransformer entity.
-     *
-     * @param \App\Entities\ProductTransformer $model
-     *
-     * @return array
-     */
-    public function transform(Product $model) {
+    // Разрешаем загрузку категории по запросу
+    protected array $availableIncludes = ['category'];
+
+    public function transform(Product $model)
+    {
         return [
-            'id'      => (int) $model->id,
-            'name'    => strtoupper($model->name),
-            'price'   => (float) $model->price,
-            'stock'   => (int) $model->stock,
-            'is_available' => $model->stock > 0,
+            'id'           => (int) $model->id,
+            'name'         => $model->name,
+            'price'        => (float) $model->price,
+            'stock'        => (int) $model->stock,
+            'category_id'  => (int) $model->category_id,
         ];
+    }
+
+    // Логика трансформации связанной категории
+    public function includeCategory(Product $model)
+    {
+        $category = $model->category;
+        if (!$category) return null;
+
+        return $this->item($category, function($cat) {
+            return [
+                'id'   => $cat->id,
+                'name' => $cat->name,
+                'slug' => $cat->slug,
+            ];
+        });
     }
 }

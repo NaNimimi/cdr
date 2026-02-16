@@ -5,7 +5,7 @@ namespace App\Repositories;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\ProductRepository;
-use App\Entities\Product;
+use App\Models\Product;
 use App\Validators\ProductValidator;
 use App\Transformers\ProductTransformer; // Импортируй свой трансформер
 use Prettus\Repository\Presenter\FractalPresenter;
@@ -29,7 +29,13 @@ class ProductRepositoryEloquent extends BaseRepository implements ProductReposit
     }
     public function presenter()
     {
-        return new FractalPresenter(new ProductTransformer());
+        return new class extends \Prettus\Repository\Presenter\FractalPresenter {
+            public function getTransformer()
+            {
+                // Убедись, что здесь имя совпадает с твоим новым классом!
+                return new \App\Transformers\ProductTransformer();
+            }
+        };
     }
     
 

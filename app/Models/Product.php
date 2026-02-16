@@ -15,17 +15,16 @@ class Product extends Model implements Transformable
      * Это важно для метода $repository->create($dto->toArray())
      */
     protected $fillable = [
+        'category_id', // ОБЯЗАТЕЛЬНО ДОБАВЬ ЭТО
         'name',
         'price',
         'stock',
         'description',
     ];
 
-    /**
-     * Приведение типов (Casting)
-     */
-    protected $casts = [
-        'price' => 'decimal:2',
-        'stock' => 'integer',
-    ];
+    // Обратная связь, чтобы работал Transformer (includeCategory)
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

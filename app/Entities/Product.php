@@ -20,6 +20,19 @@ class Product extends Model implements Transformable
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = [
+        'name',
+        'price',
+        'stock',
+        'description',
+    ];
+
+    /**
+     * Приведение типов (Casting)
+     */
+    protected $casts = [
+        'price' => 'decimal:2',
+        'stock' => 'integer',
+    ];
 
 }
