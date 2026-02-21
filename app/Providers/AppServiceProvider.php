@@ -28,6 +28,12 @@ class AppServiceProvider extends ServiceProvider
     
     
     );
+
+    $this->app->bind(
+        OrderRepository::class,
+        OrderRepositoryEloquent::class
+    
+    );
 }
     /**
      * Bootstrap any application services.
