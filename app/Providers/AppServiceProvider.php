@@ -7,6 +7,8 @@ use App\Repositories\ProductRepository;
 use App\Repositories\ProductRepositoryEloquent;
 use App\Repositories\CategoryRepository;
 use App\Repositories\CategoryRepositoryEloquent;
+use App\Repositories\OrderRepository;
+use App\Repositories\OrderRepositoryEloquent;
 
 
 class AppServiceProvider extends ServiceProvider
