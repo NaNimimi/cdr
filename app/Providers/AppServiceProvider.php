@@ -9,6 +9,8 @@ use App\Repositories\CategoryRepository;
 use App\Repositories\CategoryRepositoryEloquent;
 use App\Repositories\OrderRepository;
 use App\Repositories\OrderRepositoryEloquent;
+use App\Repositories\OrderItemRepository;
+use App\Repositories\OrderItemRepositoryEloquent;
 
 
 class AppServiceProvider extends ServiceProvider
@@ -35,6 +37,14 @@ class AppServiceProvider extends ServiceProvider
         OrderRepository::class,
         OrderRepositoryEloquent::class
     
+    );
+
+
+    $this->app->bind(
+        OrderItemRepository::class, 
+        OrderItemRepositoryEloquent::class
+
+
     );
 }
     /**
