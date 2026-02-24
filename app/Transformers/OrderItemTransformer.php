@@ -2,7 +2,7 @@
 
 namespace App\Transformers;
 
-use App\Models\Order;
+use App\Models\OrderItem;
 use League\Fractal\TransformerAbstract;
 
 class OrderItemTransformer extends TransformerAbstract 

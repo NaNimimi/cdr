@@ -1,11 +1,9 @@
-version: '3.8'
 services:
-  # Наше приложение
   app:
-    image: bitnami/laravel:latest
+    build: .
     container_name: laravel_app
-    user: root
-    command: tail -f /dev/null
+    restart: unless-stopped
+    working_dir: /app
     ports:
       - "8000:8000"
     volumes:
@@ -19,7 +17,6 @@ services:
     depends_on:
       - db
 
-  # База данных
   db:
     image: mysql:8.0
     container_name: laravel_db
@@ -34,4 +31,4 @@ services:
       - db_data:/var/lib/mysql
 
 volumes:
-  db_data: 
+  db_data:
