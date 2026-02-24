@@ -1,59 +1,250 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🚀 Laravel E-Commerce REST API (Dockerized)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A clean, production-ready RESTful API for an E-commerce platform built with **Laravel 11** and fully containerized using **Docker**.
+This project provides a complete backend solution for managing products, categories, orders, and order items.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🧱 Tech Stack
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+* **Backend:** PHP 8.2 + Laravel 11
+* **Database:** MySQL 8.0
+* **Containerization:** Docker & Docker Compose
+* **Server:** Laravel Development Server (Bitnami container)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## ✨ Features
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+✔ Full CRUD for Products
+✔ Category management
+✔ Order creation & history
+✔ Order items management
+✔ Dockerized environment
+✔ Ready for Frontend / Mobile integration
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+## 📦 Requirements
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Make sure you have installed:
 
-### Premium Partners
+* Docker
+* Docker Compose
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+Check installation:
 
-## Contributing
+```bash
+docker -v
+docker compose version
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+---
 
-## Code of Conduct
+# 🚀 Installation & Setup
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## 1️⃣ Clone the Repository
 
-## Security Vulnerabilities
+```bash
+git clone <your-repository-url>
+cd project
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+---
 
-## License
+## 2️⃣ Start Docker Containers
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+docker compose up -d
+```
+
+Check container status:
+
+```bash
+docker compose ps
+```
+
+---
+
+## 3️⃣ Initialize the Application
+
+Run the following commands inside the container:
+
+### Install Dependencies
+
+```bash
+docker compose exec app composer install
+```
+
+### Generate Application Key
+
+```bash
+docker compose exec app php artisan key:generate
+```
+
+### Run Database Migrations
+
+```bash
+docker compose exec app php artisan migrate
+```
+
+### Start Laravel Server
+
+```bash
+docker compose exec -d app php artisan serve --host=0.0.0.0 --port=8000
+```
+
+Application will be available at:
+
+```
+http://localhost:8000
+```
+
+---
+
+# 🌐 API Endpoints
+
+## 📦 Products
+
+| Method | Endpoint             | Description          |
+| ------ | -------------------- | -------------------- |
+| GET    | `/api/products`      | Get all products     |
+| GET    | `/api/products/{id}` | Get product details  |
+| POST   | `/api/products`      | Create a new product |
+| PUT    | `/api/products/{id}` | Update product       |
+| DELETE | `/api/products/{id}` | Delete product       |
+
+### 🔹 Example Request
+
+**POST /api/products**
+
+```json
+{
+    "name": "Gaming Mouse",
+    "category_id": 1,
+    "price": 49.99,
+    "stock": 100
+}
+```
+
+---
+
+## 🗂 Categories
+
+| Method | Endpoint          | Description         |
+| ------ | ----------------- | ------------------- |
+| GET    | `/api/categories` | List all categories |
+| POST   | `/api/categories` | Create new category |
+
+---
+
+## 🛒 Orders
+
+| Method | Endpoint           | Description          |
+| ------ | ------------------ | -------------------- |
+| GET    | `/api/orders`      | View order history   |
+| POST   | `/api/orders`      | Place a new order    |
+| GET    | `/api/order-items` | View all order items |
+
+---
+
+# 🗄 Database Connectivity (External Client)
+
+You can connect using tools like:
+
+* TablePlus
+* DBeaver
+* MySQL Workbench
+
+### Connection Settings
+
+```
+Host: 127.0.0.1
+Port: 33061
+Username: lll
+Password: password
+Database: laravel
+```
+
+---
+
+# 🛠 Maintenance Commands
+
+## Stop All Services
+
+```bash
+docker compose down
+```
+
+## Restart Services
+
+```bash
+docker compose restart
+```
+
+## Access Container Terminal
+
+```bash
+docker compose exec app bash
+```
+
+## View Logs
+
+```bash
+docker compose logs -f app
+```
+
+---
+
+# 🧯 Troubleshooting
+
+| Issue                 | Solution                                    |
+| --------------------- | ------------------------------------------- |
+| Container not running | `docker logs laravel_app`                   |
+| Permission denied     | `sudo chmod -R 777 storage bootstrap/cache` |
+| DB connection error   | Ensure `.env` has `DB_HOST=db`              |
+
+---
+
+# 📁 Project Structure
+
+```
+project/
+ ├── app/
+ ├── routes/
+ ├── database/
+ ├── docker-compose.yml
+ ├── Dockerfile
+ └── README.md
+```
+
+---
+
+# 📈 Ready for Extension
+
+This project can be easily extended with:
+
+* JWT / Laravel Sanctum authentication
+* Frontend integration (React, Vue, Next.js)
+* Payment gateway integration
+* Microservices architecture
+
+---
+
+# 🏁 Conclusion
+
+A clean, scalable, Dockerized REST API suitable for:
+
+* Portfolio projects
+* Technical assessments
+* MVP development
+* E-commerce backend foundation
+
+---
+
+If you'd like, I can also generate:
+
+* 🔹 A GitHub-style README with badges
+* 🔹 Swagger / OpenAPI documentation
+* 🔹 Postman collection
+* 🔹 Production deployment guide (VPS / CI-CD)
