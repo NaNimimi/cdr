@@ -1,0 +1,37 @@
+version: '3.8'
+services:
+  # Наше приложение
+  app:
+    image: bitnami/laravel:latest
+    container_name: laravel_app
+    user: root
+    command: tail -f /dev/null
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    environment:
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_USERNAME=lll
+      - DB_PASSWORD=password
+      - DB_DATABASE=laravel
+    depends_on:
+      - db
+
+  # База данных
+  db:
+    image: mysql:8.0
+    container_name: laravel_db
+    ports:
+      - "33061:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=laravel
+      - MYSQL_USER=lll
+      - MYSQL_PASSWORD=password
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data: 
